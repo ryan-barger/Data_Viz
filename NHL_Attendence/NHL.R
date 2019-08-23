@@ -3,7 +3,7 @@ library(scales)
 library(gridExtra)
 
 
-setwd("~/Visualization/2019W01 - NHL Attendance")
+setwd("")
 
 df <- read.csv("NHL Attendance2.csv", stringsAsFactors = FALSE) %>% 
   rename(SEASON=ï..SEASON)
