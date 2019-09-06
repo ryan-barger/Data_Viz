@@ -1,0 +1,35 @@
+#Loading your Libraries
+library(tidyverse)
+library(scales)
+library(gridExtra)
+
+#Set Working Directory
+setwd("")
+
+#Read in your data set from CSV File.
+df <- read.csv("TCEDataSet-500HRClub.csv", stringsAsFactors = FALSE) %>% 
+  rename(Player=ï..Player) %>% 
+  
+#Fix weird character Error in Pitcher Column
+df$Pitcher <- gsub("Â","",df$Pitcher)
+
+#Create Subset of Barry Bonds HRs against Pitchers
+Barry <- df %>% 
+  filter(Player == "Barry Bonds") %>% 
+  group_by(Pitcher) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count)) %>% 
+  slice(1:15)
+
+
+#Plotting out the data
+ggplot(data = Barry, aes(x= reorder(Pitcher, -count), y = count)) +
+  geom_bar(stat = "identity", fill="#FD5A1E") +
+  ggtitle("Barry Bonds (Career HRs against)") +
+  labs(y = "HRs", x = "Pitcher") +
+  theme_minimal() +
+  theme(axis.text.x=element_text(face="bold"))
+
+#Saving Data into PNG
+ggsave("Bary Bonds Vs.png", width = 20.4, height = 7.6, dpi = 300, limitsize = FALSE)
+
