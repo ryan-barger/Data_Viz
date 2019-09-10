@@ -8,7 +8,7 @@ setwd("")
 
 #Read in your data set from CSV File.
 df <- read.csv("TCEDataSet-500HRClub.csv", stringsAsFactors = FALSE) %>% 
-  rename(Player=ï..Player) %>% 
+  rename(Player=ï..Player)
   
 #Fix weird character Error in Pitcher Column
 df$Pitcher <- gsub("Â","",df$Pitcher)
